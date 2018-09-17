@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="18e9b857-73ed-4e76-8095-891b5ced6481" name="apache" url="http://www.mengjingchan.com/phpstorm">
+        <fileTransfer port="0" mountedRoot="C:\wamp64\bin\apache\apache2.4.23\htdocs" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
