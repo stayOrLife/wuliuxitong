@@ -1,184 +1,71 @@
-<?php 
-namespace app\index\controller;
-use think\Controller;
-use app\index\model\User;
-use think\Cookie;
-use think\Db;
-use think\Session;
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2018/9/17 0017
+ * Time: 21:34
+ */
 
-class a{
-	public $username = "zhong";
-}
+namespace app\index\controller;
+
+use think\Db;
+use think\Controller;
 
 class Index extends Controller
 {
-  public function test(){
-  	$name = "zhong";
-  	$str = "[{zhong}]";
-  	$str = str_replace("[{".$name."}]", 'Z', $str);
-  	echo $str;
-  	// $model = model("admin/User");
-  	// $model->test();
-  	// $res = $model->find('27');
-  	// $obj = new a();
-  	// return $this->fetch('test',['obj'=>$obj,'res'=>$res]);
-  }
+    function Index(){
+        $sql = "create table if not exists tb_admin(
+                id int primary key auto_increment not null,
+                admin_user varchar(50) not null,
+                admin_pass varchar(50)not null 
+              )engine=myisam default charset=utf8";
+        Db::query($sql);
+        $sql = "create table if not exists tb_car(
+                id int primary key auto_increment not null,
+                username varchar(50)not  null ,
+                user_number char(50)not null,
+                car_number varchar(50)not null,
+                tel char (11)not null,
+                address varchar (50)not null,
+                car_road mediumtext not  null,
+                car_content mediumtext not null
+              )engine=myisam default charset=utf8";
+        Db::query($sql);
+        $sql = "create table if not exists tb_car_log(
+                log_id int primary key auto_increment not null,
+               car_number varchar(50) not null,
+               car_log varchar(50) not null,
+               log_date datetime not null,
+               fahuo_id varchar(50) not null
+              )engine=myisam default charset=utf8";
+        Db::query($sql);
+        $sql = "create table if not exists tb_customer(
+               customer_id int ,
+               customer_user varchar (50) not null,
+               customer_tel varchar (50) not null,
+               customer_address varchar (80) not null
+              )engine=myisam default charset=utf8";
+        Db::query($sql);
+        $sql = "create table if not exists tb_shopping(
+             id int auto_increment primary  key ,
+             car_number varchar (50),
+             fahuo_content mediumtext,
+             fahuo_id varchar (50),
+             fahuo_user varchar (50),
+             fahuo_time datetime,
+             fahuo_ys varchar(20),
+             fahuo_fk varchar(20),
+             car_tel char(11),
+             shouhuo_user varchar (50),
+             shouhuo_address varchar (50),
+             fahuo_address varchar (50),
+             fahuo_tel char(11),
+             shouhuo_tel char(11)
+              )engine=myisam default charset=utf8";
+        Db::query($sql);
 
-  //原项目代码
-  // public function test(){
-  //   echo ROOT_PATH;
-  // }
-  public function index()
-  {
-
- //  	Db::execute("create table if not exists T(
-	// id int not null auto_increment primary key,
-	// startTime date,
-	// endTime date
- //  	)engine=myisam default charset=utf8");
-
- //  	Db::execute("create table if not exists User(
-	// id int not null auto_increment primary key,
-	// username varchar(12)not null,
-	// password varchar(64)not null,
-	// phone char(11)not null unique,
-	// Ttarget int,
-	// JRXZ int,
-	// CSL int,
-	// QYRDL int,
-	// DRZL int,
-	// ZZL float,
-	// WCL float,
-	// flag char(1),
-	// updateTIme date,
-	// TID int,
-	// foreign key(TID)references T(id)
- //  	)engine=myisam default charset=utf8");
-
- //  	Db::execute("create table if not exists Temp(
-	// id int not null auto_increment primary key,
-	// username varchar(12)not null,
-	// password varchar(64)not null,
-	// phone char(11)not null unique,
-	// Ttarget int,
-	// JRXZ int,
-	// CSL int,
-	// QYRDL int,
-	// DRZL int,
-	// ZZL float,
-	// WCL float,
-	// flag char(1),
-	// updateTIme date,
-	// TID int,
-	// foreign key(TID)references T(id)
- //  	)engine=myisam default charset=utf8");
-
-    $mod = model("User");
-
-    $list = User::order('WCL','desc')->paginate(10,false);
-    $list[sizeof($list)-1]->date = date('Y-m-d');
-    // return json_encode($list);
-    $i=0;
-    $this->assign('list', $list);
-    $this->assign('i',$i);
-    $this->assign('date',date('Y-m-d'));
-    return $this->fetch();
-  }
- //  public function login(){
- //    if(COOKIE::has('username')){
- //      $mod = model("User");
- //      $result = $mod->where('username', cookie("username"))->where('phone',cookie("phone"))->find();
-
- //      if(!empty($result['TID'])){
- //   		// SELECT A.*,B.* from table1 as A,table2 as B where A.*=B.* and A.*=*
- //       $res = Db::query("select a.* from User as u , T  as a where u.TID = a.id");
- //       $this->assign("startTime",$res[0]['startTime']);
- //       $this->assign("endTime",$res[0]['endTime']);
- //     }
- //     $this->assign("TID",$result['TID']);
- //     $this->assign("flag",$result['flag']);
- //     $this->assign("date",date("Y-m-d"));
-
- //     return $this->fetch("userIndex");
- //   }
- //   return $this->fetch("login");
- // }
-//  public function loginPro(){
-//    $mod = model("User");
-//    $checkbox = isset($_POST['checkbox'])?'1':'0' ;
-//    $b = $mod->check($_POST['username'],$_POST['phone'],$_POST['password'],$checkbox);
-//    if($b){
-
-//    	$result = $mod->where('username', $_POST['username'])->where('phone',$_POST['phone'])->find();
-
-//    	if(!empty($result['TID'])){
-//    		// SELECT A.*,B.* from table1 as A,table2 as B where A.*=B.* and A.*=*
-//    		$res = Db::query("select a.* from User as u , T  as a where u.TID = a.id");
-//       $this->assign("startTime",$res[0]['startTime']);
-//       $this->assign("endTime",$res[0]['endTime']);
-//     }
-//     $this->assign("TID",$result['TID']);
-//     $this->assign("flag",$result['flag']);
-//     $this->assign("date",date("Y-m-d"));
-
-//     return $this->fetch("userIndex");
-//   }else {
-//     echo $b;
-//     $url = url("index/login");
-//     echo "<a href='$url'>返回登录界面</a>";
-//   }
-// }
-// public function DRWCL($flag){
-//   $mod = model("User");
-//   $result = $mod->where('username', session("username"))->find();
-
-//   $time =date("Y-m-d");
-//   $res = Db::query("select * from T");
-
-//   for($i=0;$i<sizeof($res);$i++){
-//   	if( date("Y-m-d") >= $res[$i]['startTime'] && date("Y-m-d") <= $res[$i]['endTime']){
-//   		$id = $res[$i]['id'];
-//   	}
-//   }
-//   if($flag == 1){
-//   	if( empty($_POST['Target']) ){
-//   		$tempTarget = $result["Ttarget"];
-//   		$tempCSL = $result["CSL"];
-//   	}else{
-//   		$tempTarget = $_POST['Target'];
-//   		$tempCSL = $_POST['CSL'];
-//   	}
-//     $temp = $result['QYRDL'];
-//     $mod->save(['flag' => $flag, 'TID' => $id, "Ttarget" => $tempTarget, "CSL" => $tempCSL, "QYRDL" => $_POST['JRDS'], "DRZL" => $_POST['JRDS'] -$temp , "ZZL" => (($_POST['JRDS'] -$temp)/$tempTarget), "WCL" => (($_POST['JRDS']-$tempCSL)/$tempTarget),'UT' => date('Y-m-d'),'JRDL' => $_POST['JRDS'] ],['username' => session('username')]);
-//   }else if($flag == 2){
-//     if( empty($_POST['Target']) ){
-//       $tempTarget = $result["Ttarget"];
-//     }else{
-//       $tempTarget = $_POST['Target'];
-//     }
-//     $temp = $result['QYRDL'];
-//     $mod->save(['flag' => $flag, 'TID' => $id, "Ttarget" => $tempTarget, "QYRDL" => $_POST['DRZL']+ $temp, "DRZL" => $_POST['DRZL'] , "ZZL" => $_POST['DRZL']/$tempTarget, "WCL" => ($temp +  $_POST['DRZL'])/$tempTarget,'UT' => date('Y-m-d'),'JRDL' => $_POST['DRZL'] + $temp ],['username' => session('username')]);
-//   }
-//   $this->redirect('Index/index', ['cate_id' => 2]);
-// }
-// public function zhuxiao(){
-//   if(COOKIE::has('username')){
-//   	session("username",null);
-//     cookie("username",null);
-//   }
-//   $this->redirect('Index/login', ['cate_id' => 2]);
-// }
-// public function zhuce(){
-// 	return $this->fetch("zhuce");
-// }
-// public function zhucePro(){
-// 	$mod = model("Temp");
-// 	$mod->data(['username'  => $_POST['username'], 'password' =>  ($_POST['password']),'phone'  => $_POST['phone'] ] );
-// 	$mod->save();
-// 	return $this->fetch("zhuce");
-// }
-
-
-    //结尾
+        echo "success";
+//        return $this->fetch();
+    }
+//    类结束
 }
-?>
