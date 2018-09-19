@@ -1,48 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    {load href="__ROOT__/public/static/bootstrap/css/bootstrap.min.css" }
-    {load href="__ROOT__/public/static/person/css/person.css" }
-</head>
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="row"><img src="" alt="">
-                    logo
-                </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="">车源信息查询</a></li>
-                            <li><a href="#">发货单</a></li>
-                            <li><a href="#">回执发货单确认</a></li>
-                            <li><a href="#">发货单查询</a></li>
-                            <li><a href="#">客户信息管理</a></li>
-                            <li><a href="#">车源信息管理</a></li>
-                            <li><a href="#">修改密码</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="row">wangzhanlogo</div>
-                <div class="row">
-                    content
-                </div>
-            </div>
-        </div>
-    </div>
+{include file="/template/header"}
 
-
-</body>
+{switch name="$flag" }
+{case value="fhd"}{include file="/Index/fhd"}{/case}
+{case value="hzfhdqr"}{include file="/Index/hzfhdqr"}{/case}
+{case value="fhdcx"}{include file="/Index/fhdcx"}{/case}
+{case value="khxxgl"}{include file="/Index/khxxgl"}{/case}
+{case value="cyxxgl"}{include file="/Index/cyxxgl"}{/case}
+{case value="xgmm"}{include file="/Index/xgmm"}{/case}
+{default /}{include file="/Index/xinxi"}
+{/switch}
 
 
 
 
-{load href="__ROOT__/public/static/bootstrap/js/jquery-3.2.1.js"}
-{load href="__ROOT__/public/static/bootstrap/js/bootstrap.min.js"}
 
-</html>
+{include file="/template/footer"}
+

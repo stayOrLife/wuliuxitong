@@ -75,8 +75,12 @@ class Index extends Controller
         }
     }
     function gongneng(){
+         $flag = input("flag");
+        $this->assign("flag",$flag);
         return $this->fetch();
     }
+
+
 
 //    类结束
 }
