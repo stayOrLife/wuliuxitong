@@ -2,13 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>Welcome</title>
     {load href="__ROOT__/public/static/bootstrap/css/bootstrap.min.css" }
+    {load href="__ROOT__/public/static/person/css/person.css" }
 </head>
 <body>
-__ROOT__
-    <h1>index</h1>
-<button class="btn btn-default">点击</button>
+    <div class="container-fluid">
+        <div class="header">
+            <span class="h3 left">物流配送信息网</span>
+            <span class="right">物流配送信息网</span>
+        </div>
+        <div class="text-center">
+            <form action="{:url('loginPro')}" class="form-inline"  method="post">
+                <label for="username">
+                    用户名：
+                    <input type="text" placeholder="用户名" id="username" name="username">
+                </label>
+                <label for="password">
+                    密码：
+                    <input type="password" placeholder="密码" id="password" name="password">
+                </label>
+                <input class="btn btn-default" type="submit" value="登录">
+                <input class="btn btn-default" type="reset" value="重写">
+            </form>
+        </div>
+    </div>
 
 
 </body>
