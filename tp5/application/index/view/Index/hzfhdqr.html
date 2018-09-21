@@ -1,1 +1,81 @@
- hzfhdqr
+<div class="row">
+        <form action="{:url('Index/gongneng',['flag'=>'hzdqr'])}" method="post">
+
+        </form>
+    <table class="table-responsive table">
+        <tr>
+            <td>
+                <label for="fahuo_id">发货单编号</label>
+            </td>
+            <td>
+                <input type="text" id="fahuo_id" name="fahuo_id" required>
+            </td>
+            <td>
+                <label for="car_number">车牌号码</label>
+            </td>
+            <td>
+                <input type="text" id="car_number" name="car_number" required>
+            </td>
+            <td>
+                <label for="car_tel">车主电话</label>
+            </td>
+            <td>
+                <input type="text" id="car_tel" name="car_tel" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="fahuo_user">发货人</label>
+            </td>
+            <td>
+                <input type="text" id="fahuo_user" name="fahuo_user" required>
+            </td>
+            <td>
+                <label for="fahuo_tel">发货人电话</label>
+            </td>
+            <td>
+                <input type="text" id="fahuo_tel" name="fahuo_tel" required>
+            </td>
+            <td>
+                <label for="fahuo_fk">付款方式</label>
+            </td>
+            <td>
+                <input type="text" id="fahuo_fk" name="fahuo_fk" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="fahuo_content">货物描述</label>
+            </td>
+            <td>
+                <textarea name="fahuo_content" id="fahuo_content" cols="30" rows="5"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="fahuo_address">发货地址</label></td>
+            <td><input type="text" id="fahuo_address" name="fahuo_address" required></td>
+        </tr>
+        <tr>
+            <td><label for="shouhuo_user">收货人</label></td>
+            <td><input type="text" id="shouhuo_user" name="shouhuo_user" required></td>
+            <td><label for="shouhuo_tel">收货人电话</label></td>
+            <td><input type="text" id="shouhuo_tel" name="shouhuo_tel" required></td>
+        </tr>
+        <tr>
+            <td><label for="shouhuo_address">收货地址</label></td>
+            <td><textarea name="shouhuo_address" id="shouhuo_address" cols="30" rows="5"></textarea></td>
+        </tr>
+        <tr>
+            <td><label for="">发货单处理</label></td>
+            <td>处理结果</td>
+        </tr>
+        <tr>
+            <td><label for="car_log">说明</label></td>
+            <td><input type="text" id="car_log" name="" required></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="回执单确认" id="submit" class="btn"></td>
+        </tr>
+    </table>
+</div>
+

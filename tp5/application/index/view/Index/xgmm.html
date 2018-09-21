@@ -1,0 +1,79 @@
+<div class="col-md-12 col-xs-12 col-sm-12 col-bg-12">
+    <form action="{:url('Index/updatePass')}" method="post">
+        <table class="table table-responsive">
+            <caption class="text-center">修改管理员密码</caption>
+            <tr>
+                <td>管理员</td>
+                <td><input type="text" name="admin_user" id="admin_user" required></td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td><input type="password" name="admin_pass" id="admin_pass" required></td>
+            </tr>
+            <tr>
+                <td>新密码</td>
+                <td><input type="password" id="pass" required name="pass"></td>
+            </tr>
+            <tr>
+                <td>确认密码</td>
+                <td><input type="password" id="passAgain" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" class="btn" id="submit"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+{load href="__ROOT__/public/static/bootstrap/js/jquery-3.2.1.js"}
+
+<script>
+    var admin_user  = document.getElementById("admin_user");
+    var admin_pass  = document.getElementById("admin_pass");
+    var pass  = document.getElementById("pass");
+    var passAgain  = document.getElementById("passAgain");
+    var submit  = document.getElementById("submit");
+
+    var admin = {};
+
+
+
+    //需要做的保证旧密码正确，保证两次新密码相同
+    // 以下为业务代码
+
+    admin_pass.onblur = function () {
+        admin.admin_user = admin_user.value;
+        admin.admin_pass = admin_pass.value;
+        $.ajax({
+            async:true,
+            data:admin,
+            dataType:"JSON",
+            type:"POST",
+            url:"{:url('Index/querenUser')}",
+            success:function(result,status,xhr){
+                if(result == 0){
+                   admin_pass.value = "";
+                   admin_pass.placeholder = "密码错误，请重新输入";
+                }
+        }
+        })
+    }
+
+    submit.onclick = function () {
+        if(pass.value != passAgain.value){
+            alert("两次密码不一致");
+            return false;
+        }
+    }
+
+
+
+</script>
