@@ -1,0 +1,172 @@
+<form action="" >
+    <table class="table table-responsive">
+        <tr>
+            <td>车源信息管理</td>
+            <td>
+                <select name="key" id="key">
+                    {volist name="res" id="vo"}
+                    <option value="{$vo.car_number}">{$vo.car_number}</option>
+                    {/volist}
+                </select>
+            </td>
+            <td><button id="find" class="btn btn-info">查询</button></td>
+            <td></td>
+        </tr>
+    </table>
+</form>
+
+<form action="">
+    <table class="table-responsive table">
+        <tr>
+            <td><label for="username">姓名</label></td>
+            <td><input type="text" name="username" id="username"></td>
+            <td><label for="car_number">车牌号码</label></td>
+            <td><input type="text" name="car_number" id="car_number"></td>
+        </tr>
+        <tr>
+            <td><label for="user_number">身份证</label></td>
+            <td><input type="text" name="user_number" id="user_number"></td>
+            <td><label for="car_content">车辆描述</label></td>
+            <td><textarea name="car_content" id="car_content" cols="30" rows="1"></textarea></td>
+        </tr>
+        <tr>
+            <td><label for="tel">电话</label></td>
+            <td><input type="tel" name="tel" id="tel"></td>
+        </tr>
+        <tr>
+            <td><label for="address">地址</label></td>
+            <td><input type="text" name="address" id="address"></td>
+            <td><label for="car_road">运输路线</label></td>
+            <td><textarea name="car_road" id="car_road" cols="30" rows="1"></textarea></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button class="btn btn-info" id="add">增加</button></td>
+            <td><button class="btn btn-primary" id="update">修改</button></td>
+            <td><button class="btn btn-danger" id="del">删除</button></td>
+        </tr>
+    </table>
+</form>
+
+{load href="__ROOT__/public/static/bootstrap/js/jquery-3.2.1.js"}
+<script>
+    var username = document.getElementById("username");
+    var car_number = document.getElementById("car_number");
+    var user_number = document.getElementById("user_number");
+    var car_content = document.getElementById("car_content");
+    var tel = document.getElementById("tel");
+    var address = document.getElementById("address");
+    var car_road = document.getElementById("car_road");
+    var arr = {};//用于记录表单提交的数据
+    // 阻止表单提交
+    var form = document.getElementsByTagName("form");
+    for (var i =0;i<form.length;i++){
+        form[i].onsubmit = function(e){
+           e.preventDefault();
+        }
+    }
+
+    //查询并显示车源信息
+    document.getElementById("find").onclick  =function () {
+        var d = document.getElementById("key").value;
+        var data = {};
+        data.d = d;
+        $.ajax({
+            async:true,
+            data:data,
+            dataType:"JSON",
+            type:"POST",
+            url:"{:url('Index/selectCar')}",
+            success:function(result,status,xhr){
+                username.value = result.username;
+                car_number.value = result.car_number;
+                user_number.value = result.user_number;
+                car_content.value = result.car_content;
+                tel.value = result.tel;
+                address.value = result.address;
+                car_road.value = result.car_road;
+            }
+        })
+    }
+
+    document.getElementById("del").onclick  =function () {
+        var d = document.getElementById("car_number").value;
+        var data = {};
+        data.d = d;
+        $.ajax({
+            async:true,
+            data:data,
+            dataType:"JSON",
+            type:"POST",
+            url:"{:url('Index/del_car')}",
+            success:function(result,status,xhr){
+                if(result == 1){
+                    alert("删除成功");
+                }else{
+                    alert("删除失败");
+                }
+            }
+        })
+    }
+
+    document.getElementById("add").onclick  =function () {
+        var data = {};
+        data.username = username.value;
+        data.car_number = car_number.value;
+        data.user_number =user_number.value;
+        data.car_content =car_content.value;
+        data.tel = tel.value;
+        data.address =address.value;
+        data.car_road =car_road.value;
+        $.ajax({
+            async:true,
+            data:data,
+            dataType:"JSON",
+            type:"POST",
+            url:"{:url('Index/add_car')}",
+            success:function(result,status,xhr){
+                if(result == 1){
+                    alert("添加成功");
+                }else{
+                    alert("添加失败");
+                }
+            }
+        })
+    }
+
+    document.getElementById("update").onclick  =function () {
+        var data = {};
+        data.username = username.value;
+        data.car_number = car_number.value;
+        data.user_number =user_number.value;
+        data.car_content =car_content.value;
+        data.tel = tel.value;
+        data.address =address.value;
+        data.car_road =car_road.value;
+        $.ajax({
+            async:true,
+            data:data,
+            dataType:"JSON",
+            type:"POST",
+            url:"{:url('Index/update_car')}",
+            success:function(result,status,xhr){
+                if(result == 1){
+                    alert("更新成功");
+                }else{
+                    alert("更新失败");
+                }
+            }
+        })
+    }
+
+
+
+
+
+
+
+
+
+</script>
+
+

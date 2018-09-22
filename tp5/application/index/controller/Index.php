@@ -10,6 +10,9 @@ namespace app\index\controller;
 
 use think\Db;
 use think\Controller;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\ModelNotFoundException;
+use think\exception\DbException;
 
 class Index extends Controller
 {
@@ -40,7 +43,7 @@ class Index extends Controller
 //              )engine=myisam default charset=utf8";
 //        Db::query($sql);
 //        $sql = "create table if not exists tb_customer(
-//               customer_id int ,
+//               customer_id int primary key auto_increment ,
 //               customer_user varchar (50) not null,
 //               customer_tel varchar (50) not null,
 //               customer_address varchar (80) not null
@@ -72,13 +75,13 @@ class Index extends Controller
     }
 
     function loginPro(){
-        $b = Db::table("tb_admin")->where('admin_user',input("username"))->where("admin_pass",input('password'))->find();
+        $b = Db::table("tb_admin")->where('admin_user', input("username"))->where("admin_pass", input('password'))->find();
         if(!empty($b)){
             session("admin_user",$b['admin_user']);
             session("admin_pass",$b['admin_pass']);
-           return $this->success("登录成功","Index/gongneng");
+            $this->success("登录成功","Index/gongneng");
         }else{
-            return $this->error("登录失败,重新登录","Index/index");
+            $this->error("登录失败,重新登录","Index/index");
         }
     }
     function gongneng(){
@@ -116,6 +119,37 @@ class Index extends Controller
                     Db::table("tb_shopping")->where("fahuo_id",$da['fahuo_id'])->delete();
                 }
                 break;
+            case "hzfhdqr":
+                $vo = null;
+                $data = input("post.");
+                $da = input("get.");
+                if(!empty($data)){
+                    $vo =  Db::table("tb_shopping")->where("fahuo_id",$data['key'])->find();
+                }else if(!empty($da)){
+                    $b  = Db::table("tb_shopping")->where("fahuo_id",$da['fahuo_id'])->update(["fahuo_ys"=>1]);
+                    $vo =  Db::table("tb_shopping")->where("fahuo_id",$da['fahuo_id'])->find();
+                }
+                $this->assign("vo",$vo);
+                break;
+            case "khxxgl":
+                $res = Db::table("tb_customer")->select();
+                $this->assign("res",$res);
+                $data = input("post.");
+                $da = input("get.");
+                if(!empty($data)){
+                    Db::table("tb_customer")->insert($data);
+                    $res = Db::table("tb_customer")->select();
+                    $this->assign("res",$res);
+                }else if(!empty($da)){
+                    Db::table("tb_customer")->where("customer_id",$da['customer_id'])->delete();
+                    $res = Db::table("tb_customer")->select();
+                    $this->assign("res",$res);
+                }
+                break;
+            case "cyxxgl":
+                $data = DB::table("tb_car")->select();
+                $this->assign("res",$data);
+                break;
         }
         return $this->fetch();
     }
@@ -150,6 +184,29 @@ class Index extends Controller
         $to = $data['to'];
         $res = Db::table("tb_car")->where("car_road like '%$go%' ")->where("car_road like '%$to%' ")->select();
         return $res;
+    }
+
+    function selectCar(){
+        $data = input("d");
+        $res = Db::table("tb_car")->where("car_number",$data)->find();
+        return $res;
+    }
+
+    function del_car(){
+        $b = Db::table("tb_car")->where("car_number",input('d'))->delete();
+        return $b;
+    }
+
+    function add_car(){
+        $data = input("post.");
+        $b = Db::table("tb_car")->insert($data);
+        return $b;
+    }
+
+    function update_car(){
+        $data = input("post.");
+        $b = Db::table("tb_car")->where("car_number",$data['car_number'])->update($data);
+        return $b;
     }
 
 
