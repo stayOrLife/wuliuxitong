@@ -19,25 +19,25 @@
     <table class="table-responsive table">
         <tr>
             <td><label for="username">姓名</label></td>
-            <td><input type="text" name="username" id="username"></td>
+            <td><input type="text" name="username" id="username" required></td>
             <td><label for="car_number">车牌号码</label></td>
-            <td><input type="text" name="car_number" id="car_number"></td>
+            <td><input type="text" name="car_number" id="car_number" required></td>
         </tr>
         <tr>
             <td><label for="user_number">身份证</label></td>
-            <td><input type="text" name="user_number" id="user_number"></td>
+            <td><input type="text" name="user_number" id="user_number" required></td>
             <td><label for="car_content">车辆描述</label></td>
-            <td><textarea name="car_content" id="car_content" cols="30" rows="1"></textarea></td>
+            <td><textarea name="car_content" id="car_content" cols="30" rows="1" required></textarea></td>
         </tr>
         <tr>
             <td><label for="tel">电话</label></td>
-            <td><input type="tel" name="tel" id="tel"></td>
+            <td><input type="tel" name="tel" id="tel" required></td>
         </tr>
         <tr>
             <td><label for="address">地址</label></td>
-            <td><input type="text" name="address" id="address"></td>
+            <td><input type="text" name="address" id="address" required></td>
             <td><label for="car_road">运输路线</label></td>
-            <td><textarea name="car_road" id="car_road" cols="30" rows="1"></textarea></td>
+            <td><textarea name="car_road" id="car_road" cols="30" rows="1" required></textarea></td>
         </tr>
         <tr>
             <td></td>
@@ -111,6 +111,9 @@
 
     document.getElementById("add").onclick  =function () {
         var data = {};
+        if(username.value==null || car_number.value==null || user_number.value==null || car_content.value==null || tel.value==null || address.value==null || car_road.value==null ){
+            return ;
+        }
         data.username = username.value;
         data.car_number = car_number.value;
         data.user_number =user_number.value;
