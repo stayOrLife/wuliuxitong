@@ -1,7 +1,7 @@
-<div class="col-md-8">
+<div class="col-md-12 col-xs-12 col-sm-12 col-bg-12">
     <form action="{:url('gongneng',['flag'=>'khxxgl'])}" method="post">
         <table class="table table-responsive">
-            <caption class="text-center">客户信息管理</caption>
+            <caption class="text-center" style="font-size: xx-large;color: chocolate">客户信息管理</caption>
             <tr>
                 <td><label for="customer_user">客户姓名</label> </td>
                 <td><input type="text" name="customer_user" id="customer_user" required></td>
@@ -15,7 +15,7 @@
                 <td><textarea name="customer_address" id="customer_address" cols="19" rows="2"></textarea> </td>
             </tr>
             <tr>
-                <td><input type="submit" value="添加" class="btn" required></td>
+                <td><input type="submit" value="添加" class="btn btn-success" required></td>
                 <td> </td>
             </tr>
         </table>
@@ -35,7 +35,7 @@
               <td>{$vo.customer_user}</td>
               <td>{$vo.customer_tel}</td>
               <td>{$vo.customer_address}</td>
-              <td><a href="{:url('gongneng',['flag'=>'khxxgl'])}?customer_id={$vo.customer_id}" class="btn">删除</a></td>
+              <td><a href="{:url('gongneng',['flag'=>'khxxgl'])}?customer_id={$vo.customer_id}" class="btn btn-info">删除</a></td>
           </tr>
           {/volist}
       </table>

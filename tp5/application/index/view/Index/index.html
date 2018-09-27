@@ -1,29 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
     {load href="__ROOT__/public/static/bootstrap/css/bootstrap.min.css" }
     {load href="__ROOT__/public/static/person/css/person.css" }
 </head>
-<body>
+<body style="height: 100%">
+    <style>
+        .container-fluid {width: 100%;height:100%;background:url("__ROOT__/public/static/bootstrap/images/beijing.png");}
+        /*.header{width: max-content;}*/
+        .header img{width: 100px;height: 100px;}
+        .text-top{text-align:center;font-size: xx-large;}
+        .text-center{margin-top: 20px;}
+    </style>
     <div class="container-fluid">
         <div class="header">
-            <span class="h3 left">物流配送信息网</span>
-            <span class="right">物流配送信息网</span>
+            <div class="logo text-center" style="margin-top: 0;"><img src="__ROOT__/public/static/bootstrap/images/logo.png" alt=""></div>
+            <div class="text-top">物流配送信息网</div>
         </div>
         <div class="text-center">
             <form action="{:url('loginPro')}" class="form-inline"  method="post">
                 <label for="username">
                     用户名：
                     <input type="text" placeholder="用户名" id="username" name="username">
-                </label>
+                </label><br><br>
                 <label for="password">
-                    密码：
+                    密&nbsp&nbsp&nbsp&nbsp码：
                     <input type="password" placeholder="密码" id="password" name="password">
-                </label>
-                <input class="btn btn-default" type="submit" value="登录">
-                <input class="btn btn-default" type="reset" value="重写">
+                </label><br><br>
+                <input class="btn btn-success" type="submit" value="登录">
+                <input class="btn btn-warning" type="reset" value="重写">
             </form>
         </div>
     </div>

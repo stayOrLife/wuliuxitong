@@ -1,5 +1,5 @@
-<div class="row">
-    <form action="{:url('Index/gongneng',['flag'=>'hzfhdqr'])}" method="post">
+<div class="col-md-12 col-xs-12 col-sm-12 col-bg-12">
+<form action="{:url('Index/gongneng',['flag'=>'hzfhdqr'])}" method="post">
     <table class="table-responsive table">
         <tr>
             <td>
@@ -9,7 +9,7 @@
                 <input type="text" id="key" name="key" required>
             </td>
             <td>
-                <input type="submit" value="提交" class="btn">
+                <input type="submit" value="点击查询" class="btn btn-success">
             </td>
         </tr>
         {if !empty($vo)}
@@ -51,14 +51,10 @@
             <td><label for="">发货单处理</label></td>
             <td>{$vo.fahuo_ys}</td>
         </tr>
-        <tr>
-            <td><label for="">说明</label></td>
-            <td>说明</td>
-        </tr>
-        <tr><td><a href="{:url('gongneng')}?flag=hzfhdqr&fahuo_id={$vo.fahuo_id}" class="btn">发货订单回执确认</a></td></tr>
+        <tr><td><a href="{:url('gongneng')}?flag=hzfhdqr&fahuo_id={$vo.fahuo_id}" class="btn btn-info">发货订单回执确认</a></td></tr>
         {/if}
     </table>
     </form>
-
 </div>
+
 

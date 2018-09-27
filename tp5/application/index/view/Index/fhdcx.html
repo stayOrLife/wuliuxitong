@@ -3,13 +3,13 @@
         <tr>
             <td><label for="">发货单查询</label></td>
             <td>
-                <select name="select" id="">
+                <select name="select" id="" style="color: black">
                     <option value="fahuo_id" checked>发货单编号</option>
                     <option value="fahuo_user">发货人姓名</option>
                 </select>
             </td>
             <td><input type="text" id="key" name="key" required></td>
-            <td><input type="submit" value="提交" class="btn"></td>
+            <td><input type="submit" value="点击查询" class="btn btn-success"></td>
         </tr>
         {if !empty($vo)}
         <tr>
@@ -48,13 +48,9 @@
         </tr>
         <tr>
             <td><label for="">发货单处理</label></td>
-            <td>0</td>
+            <td>{$vo.fahuo_ys}</td>
         </tr>
-        <tr>
-            <td><label for="">说明</label></td>
-            <td>说明</td>
-        </tr>
-        <tr><td><a href="{:url('gongneng')}?flag=fhdcx&fahuo_id={$vo.fahuo_id}" class="btn">删除</a></td></tr>
+        <tr><td><a href="{:url('gongneng')}?flag=fhdcx&fahuo_id={$vo.fahuo_id}" class="btn btn-danger">删除</a></td></tr>
         {/if}
 </table>
 </form>

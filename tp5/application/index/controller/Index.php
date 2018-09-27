@@ -39,7 +39,7 @@ class Index extends Controller
 //               car_number varchar(50) not null,
 //               car_log varchar(50) not null,
 //               log_date datetime not null,
-//               fahuo_id varchar(50) not null
+//               fahuo_id varchar(50)
 //              )engine=myisam default charset=utf8";
 //        Db::query($sql);
 //        $sql = "create table if not exists tb_customer(
@@ -92,7 +92,17 @@ class Index extends Controller
                 $data = input("post.");
                 $res = null;
               if(!empty($data)){
-                  $res =  $this->selectCYXX($data);
+                  $go = $data['go'];
+                  $to = $data['to'];
+                  $res = Db::table("tb_car")->where("car_road like '%$go%' ")->where("car_road like '%$to%' ")->select();
+                  $log = [];
+                  for($i=0;$i<sizeof($res);$i++){
+                      $log[$i] = Db::table("tb_car_log")->where("car_number",$res[$i]['car_number'])->find();
+                  }
+//                  var_dump($log);
+                  $this->assign("log",$log);
+                  $i = 0;
+                  $this->assign("i",$i);
               }
               $this->assign("res",$res);
                 break;
@@ -141,7 +151,7 @@ class Index extends Controller
                     $res = Db::table("tb_customer")->select();
                     $this->assign("res",$res);
                 }else if(!empty($da)){
-                    Db::table("tb_customer")->where("customer_id",$da['customer_id'])->delete();
+                   $b =  Db::table("tb_customer")->where("customer_id",$da['customer_id'])->delete();
                     $res = Db::table("tb_customer")->select();
                     $this->assign("res",$res);
                 }
@@ -183,6 +193,10 @@ class Index extends Controller
         $go = $data['go'];
         $to = $data['to'];
         $res = Db::table("tb_car")->where("car_road like '%$go%' ")->where("car_road like '%$to%' ")->select();
+        $log = [];
+        for($i=0;$i<sizeof($res);$i++){
+            $log[$i] = Db::table("tb_car_log")->where("car_number",$res[i]['car_number'])->find();
+        }
         return $res;
     }
 
@@ -208,6 +222,20 @@ class Index extends Controller
         $b = Db::table("tb_car")->where("car_number",$data['car_number'])->update($data);
         return $b;
     }
+
+    function car_use(){
+        //不知道发货单编号
+        $arr = ['car_number'=>input('car_number'),'car_log'=>"已使用","log_date"=>date("Y-m-d")];
+        $b = Db::table("tb_car_log")->where("car_number",input("car_number"))->insert($arr);
+        return $b;
+    }
+
+    function car_OK(){
+        $b = Db::table("tb_car_log")->where("car_number",input("car_number"))->delete();
+        return $b;
+    }
+
+
 
 
 

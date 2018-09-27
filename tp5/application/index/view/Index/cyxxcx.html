@@ -3,7 +3,7 @@
         <form action="{:url('gongneng',['flag'=>'cyxxcx'])}" method="post">
             <label for="go">查询 <input type="text" id="go" name="go"></label>
             <label for="to"> 至 <input type="text" id="to" name="to"></label>
-            <input type="submit" class="btn" value="提交">
+            <input type="submit" class="btn btn-success" value="点击查询">
         </form>
     </div>
     <table class="table table-responsive">
@@ -20,8 +20,13 @@
             <td>{$vo.car_number}</td>
             <td>{$vo.car_road}</td>
             <td>{$vo.car_content}</td>
-            <td>rizhi</td>
-            <td>是否使用</td>
+            <td>{$log[$i-1]['car_log']}</td>
+            <td>
+                {if empty($log[$i-1]['car_log'])}
+                    <a href="#" onclick="useYS('{:url(\'car_use\')}?car_number={$vo.car_number}')">确认使用</a>
+                {else/}<a href="#" onclick="useYS('{:url(\'car_OK\')}?car_number={$vo.car_number}')">完成使用</a>
+                {/if}
+            </td>
         </tr>
       {/volist}
       </tbody>
@@ -29,57 +34,20 @@
 </div>
 
 
+{load href="__ROOT__/public/static/bootstrap/js/jquery-3.2.1.js"}
+<script>
+    function useYS(url) {
+        $.ajax(
+            $.ajax({
+                async:true,
+                dataType:"JSON",
+                type:"GET",
+                url:url,
+                success:function(result,status,xhr){
+                  location.reload();
+                }
+            })
+        )
+    }
+</script>
 
-
-<!--{load href="__ROOT__/public/static/bootstrap/js/jquery-3.2.1.js"}-->
-<!--<script>-->
-    <!--var go = document.getElementById("go");-->
-    <!--var to = document.getElementById("to");-->
-    <!--var submit = document.getElementById("submit");-->
-    <!--var table = document.getElementById("table");-->
-    <!--var data = {};-->
-    <!--submit.onclick = function () {-->
-        <!--data.go = go.value;-->
-        <!--data.to = to.value;-->
-        <!--$.ajax({-->
-            <!--async:true,-->
-            <!--data:data,-->
-            <!--dataType:"JSON",-->
-            <!--type:"POST",-->
-            <!--url:"{:url('Index/selectCYXX')}",-->
-            <!--success:function(result,status,xhr){-->
-              <!--if(result.length == 0){-->
-                  <!--alert("没有该路径的车辆");-->
-              <!--}else{-->
-                  <!--for (var i=0;i<result.length;i++){-->
-                      <!--table.appendChild(createRow(result[i]));-->
-                  <!--}-->
-              <!--}-->
-            <!--}-->
-        <!--})-->
-    <!--}-->
-
-    <!--function createRow(data) {-->
-        <!--//创建元素-->
-        <!--var row = document.createElement("tr");-->
-        <!--var car_number = document.createElement("td");-->
-        <!--var car_road = document.createElement("td");-->
-        <!--var car_content = document.createElement("td");-->
-        <!--var log = document.createElement("td");-->
-        <!--var b = document.createElement("td");-->
-
-        <!--// 添加值-->
-        <!--car_number.innerHTML = data['car_number'];-->
-        <!--car_road.innerHTML = data['car_road'];-->
-        <!--car_content.innerHTML = data['car_content'];-->
-        <!--//日志信息-->
-        <!--b.innerHTML = "是否使用该车";-->
-        <!--//添加节点-->
-        <!--row.appendChild(car_number);-->
-        <!--row.appendChild(car_road);-->
-        <!--row.appendChild(car_content);-->
-        <!--row.appendChild(log);-->
-        <!--row.appendChild(b);-->
-        <!--return row;-->
-    <!--}-->
-<!--</script>-->
